@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['starfish-app-xpzwn.ondigitalocean.app', 'localhost', '127.0.0.
 # Application definition
 
 INSTALLED_APPS = [
-    'whitenose.runserver_nostatic',
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
