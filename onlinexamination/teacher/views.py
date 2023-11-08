@@ -103,6 +103,20 @@ def teacher_add_question_view(request):
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
+def teacher_add_question_next_view(request):
+    questionForm=QFORM.EnterCourseForm()
+    if request.method=='POST':
+        questionForm=QFORM.QuestionForm(request.POST)
+
+
+        course=QMODEL.Course.objects.get(id=request.POST.get('courseID'))
+        print(course)
+
+        return HttpResponseRedirect(f'/teacher/teacher-add-question/{course.id}')
+    return render(request,'teacher/teacher_enter_question.html',{'questionForm':questionForm})
+
+@login_required(login_url='teacherlogin')
+@user_passes_test(is_teacher)
 def teacher_view_question_view(request):
     courses= QMODEL.Course.objects.all()
     return render(request,'teacher/teacher_view_question.html',{'courses':courses})

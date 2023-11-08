@@ -13,6 +13,9 @@ class CourseForm(forms.ModelForm):
         model= models.Course
         fields=['course_name','question_number','total_marks']
 
+class EnterCourseForm(forms.Form):
+    courseID=forms.ModelChoiceField(queryset=models.Course.objects.all(), empty_label="Course Name", to_field_name="id")
+
 class QuestionForm(forms.ModelForm):
     
     #this will show dropdown __str__ method course model is shown on html so override it
@@ -20,7 +23,9 @@ class QuestionForm(forms.ModelForm):
     courseID=forms.ModelChoiceField(queryset=models.Course.objects.all(), empty_label="Course Name", to_field_name="id")
     class Meta:
         model= models.Question
-        fields=['marks','question','option1','option2','option3','option4','answer']
-        widgets = {
-            'question': forms.Textarea(attrs={'rows': 3, 'cols': 50})
-        }
+        fields=['quiz_pic','answer1','answer2','answer3','answer4','answer5','answer6','answer7','answer8','answer9','answer10']
+
+class StudentAnswerForm(forms.ModelForm):
+    class Meta:
+        model= models.StudentAnswer
+        fields=['answer1','answer2','answer3','answer4','answer5','answer6','answer7','answer8','answer9','answer10']

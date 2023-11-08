@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required,user_passes_test
 from exam import models as QMODEL
+from exam import forms as QFORM
 
 
 #for showing signup/login button for student
@@ -55,48 +56,56 @@ def student_exam_view(request):
 def take_exam_view(request,pk):
     course=QMODEL.Course.objects.get(id=pk)
     total_questions=QMODEL.Question.objects.all().filter(course=course).count()
-    questions=QMODEL.Question.objects.all().filter(course=course)
-    total_marks=0
-    for q in questions:
-        total_marks=total_marks + q.marks
+
     
-    return render(request,'student/take_exam.html',{'course':course,'total_questions':total_questions,'total_marks':total_marks})
+    return render(request,'student/take_exam.html',{'course':course,'total_questions':total_questions})
 
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def start_exam_view(request,pk):
     course=QMODEL.Course.objects.get(id=pk)
-    questions=QMODEL.Question.objects.all().filter(course=course)
+    question=QMODEL.Question.objects.get(course=course)
+    student_ins=request.user.student
+    studentForm= QFORM.StudentAnswerForm()
+    response= render(request,'student/start_exam.html',{'course':course,'question':question,'studentForm':studentForm})
     if request.method=='POST':
-        pass
-    response= render(request,'student/start_exam.html',{'course':course,'questions':questions})
+        studentForm= QFORM.StudentAnswerForm(request.POST,request.FILES)
+        if studentForm.is_valid():
+            student=studentForm.save(commit=False)
+            student.student=student_ins
+            student.course=course
+            if not QMODEL.StudentAnswer.objects.filter(student=student_ins,course=course).exists():
+                student.save()
+            calculate_marks_view(request)
+            response= render(request,'student/start_exam.html',{'course':course,'question':question,'studentForm':studentForm})
     response.set_cookie('course_id',course.id)
-    return response
+    return HttpResponseRedirect('/student/view-result')
 
 
-@login_required(login_url='studentlogin')
-@user_passes_test(is_student)
 def calculate_marks_view(request):
     if request.COOKIES.get('course_id') is not None:
         course_id = request.COOKIES.get('course_id')
-        course=QMODEL.Course.objects.get(id=course_id)
-        
-        total_marks=0
-        questions=QMODEL.Question.objects.all().filter(course=course)
-        for i in range(len(questions)):
-            
-            selected_ans = request.COOKIES.get(str(i+1))
-            actual_answer = questions[i].answer
-            if selected_ans == actual_answer:
-                total_marks = total_marks + questions[i].marks
+        course = QMODEL.Course.objects.get(id=course_id)
+        total_marks = 0
+        print(course)
+        print(request.user.student)
+        student_answers = QMODEL.StudentAnswer.objects.get(course=course, student=request.user.student)
+        for i in range(1, 11):
+
+            selected_ans = getattr(student_answers, f'answer{i}')
+            real_answer_field = f'answer{i}'  # Field name for correct answer
+            real_answer = getattr(QMODEL.Question.objects.get(course=course), real_answer_field)
+            print(selected_ans, real_answer)
+
+            if selected_ans == real_answer:
+                total_marks += 10  # Assuming each correct answer adds 1 mark
+
         student = models.Student.objects.get(user_id=request.user.id)
         result = QMODEL.Result()
-        result.marks=total_marks
-        result.exam=course
-        result.student=student
+        result.marks = total_marks
+        result.exam = course
+        result.student = student
         result.save()
-
-        return HttpResponseRedirect('view-result')
 
 
 

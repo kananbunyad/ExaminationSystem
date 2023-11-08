@@ -1,5 +1,6 @@
 {% extends 'student/studentbase.html' %}
 {% block content %}
+    {% load widget_tweaks %}
 {%load static%}
 
 <head>
@@ -13,48 +14,47 @@
 
 <div class="jumbotron my-4">
 
-  <form class="form" autocomplete="off" onsubmit="return saveAns()"  action="/student/calculate-marks" method="POST">
+  <form method="POST" class="form" autocomplete="off" onsubmit="return saveAns()" >
     {% csrf_token %}
     <h2 style="text-align: center;">Course: {{course.course_name}}</h2>
-    {% for q in questions%}
-    <h3 class="text-danger">{{ forloop.counter }}. {{q.question}}</h3><h4 style="text-align: right;">[{{q.marks}} Marks]</h4>
-    
+        <div style="text-align: center">
+            <img style="width: 30em; height: 30em;" src="/static/{{question.quiz_pic}}">
+        </div>
+
         <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
         
         
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option1}}" value="Option1">
-            <label class="form-check-label" for="option1">
-              {{q.option1}}
-            </label>
-          </div>
-
-        
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option2}}" value="Option2">
-            <label class="form-check-label" for="option2">
-              {{q.option2}}
-            </label>
-          </div>
-
-        
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option3}}" value="Option3">
-            <label class="form-check-label" for="option3">
-              {{q.option3}}
-            </label>
-          </div>
-
-        
-          <div class="form-check mx-4">
-            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{q.option4}}" value="Option4">
-            <label class="form-check-label" for="option4">
-              {{q.option4}}
-            </label>
-          </div>
-
-        {% endfor %}
-        <input class="btn btn-success btn-lg" style="border-radius: 0%;"  type="submit" value="Submit Answers">  
+          <label for="answer">Correct Answer 1</label>
+      {% render_field studentForm.answer1|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 2</label>
+        {% render_field studentForm.answer2|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 3</label>
+        {% render_field studentForm.answer3|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 4</label>
+        {% render_field studentForm.answer4|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 5</label>
+        {% render_field studentForm.answer5|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 6</label>
+        {% render_field studentForm.answer6|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 7</label>
+        {% render_field studentForm.answer7|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 8</label>
+        {% render_field studentForm.answer8|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 9</label>
+        {% render_field studentForm.answer9|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 10</label>
+        {% render_field studentForm.answer10|attr:'required:true' class="form-control" %}
+          <br>
+        <input class="btn btn-success btn-lg" style="border-radius: 0%;"  type="submit" value="Submit Answers">
     </form>
   </div>
 

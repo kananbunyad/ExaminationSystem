@@ -25,28 +25,44 @@
       {% render_field questionForm.courseID|attr:'required:true' class="form-control"  %}
         <br>
 
-      <label for="question">Question</label>
-      {% render_field questionForm.question|attr:'required:true' class="form-control" placeholder="Example: What is the relation calculus?" %}
-        <br>
-      <label for="question_number">Marks</label>
-      {% render_field questionForm.marks|attr:'required:true' class="form-control" placeholder="Example: 5" %}
-        <br>
-      <label for="option1">Option 1</label>
-      {% render_field questionForm.option1|attr:'required:true' class="form-control" placeholder="Example: It is a kind of procedural language" %}
-        <br>
-      <label for="option2">Option 2</label>
-      {% render_field questionForm.option2|attr:'required:true' class="form-control" placeholder="Example: It is a non-procedural language" %}
-        <br>
-      <label for="option3">Option 3</label>
-      {% render_field questionForm.option3|attr:'required:true' class="form-control" placeholder="Example: It is a high-level language" %}
-        <br>
-      <label for="option4">Option 4</label>
-      {% render_field questionForm.option4|attr:'required:true' class="form-control" placeholder="Example: It is Data Definition language" %}
-        <br>
-      <label for="answer">Correct Answer</label>
-      {% render_field questionForm.answer|attr:'required:true' class="form-control" %}
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="profile_pic">Quiz Image</label>
+          {% render_field questionForm.quiz_pic|attr:'required:true' class="form-control" placeholder="" %}
+        </div>
+      <label for="answer">Correct Answer 1</label>
+      {% render_field questionForm.answer1|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 2</label>
+        {% render_field questionForm.answer2|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 3</label>
+        {% render_field questionForm.answer3|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 4</label>
+        {% render_field questionForm.answer4|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 5</label>
+        {% render_field questionForm.answer5|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 6</label>
+        {% render_field questionForm.answer6|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 7</label>
+        {% render_field questionForm.answer7|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 8</label>
+        {% render_field questionForm.answer8|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 9</label>
+        {% render_field questionForm.answer9|attr:'required:true' class="form-control" %}
+          <br>
+        <label for="answer">Correct Answer 10</label>
+        {% render_field questionForm.answer10|attr:'required:true' class="form-control" %}
+          <br>
+
     </div>
-    
+
 
     <button type="submit" class="btn btn-success" style="border-radius: 0%;">Submit Question</button>
   </form>

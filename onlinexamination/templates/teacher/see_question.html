@@ -33,16 +33,14 @@
 
           <th>Question</th>
          
-          <th>Marks</th>
           <th>Action</th>
         </tr>
       </thead>
       {% for c in questions %}
       <tr>
 
-        <td> {{c.question}}</td>
-        
-        <td>{{c.marks}}</td>
+        <td> <img style="width: 10em; height: 10em;" src="/static/{{c.quiz_pic}}"> </td>
+
         <td><a class="btn btn-danger btn-xs" style="border-radius: 0%;" href="{% url 'remove-question' c.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
         
       </tr>
