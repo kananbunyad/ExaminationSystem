@@ -77,10 +77,9 @@ def start_exam_view(request,pk):
             if not QMODEL.StudentAnswer.objects.filter(student=student_ins,course=course).exists():
                 student.save()
             calculate_marks_view(request)
-            response= render(request,'student/start_exam.html',{'course':course,'question':question,'studentForm':studentForm})
+            return HttpResponseRedirect('/student/view-result')
     response.set_cookie('course_id',course.id)
-    return HttpResponseRedirect('/student/view-result')
-
+    return response
 
 def calculate_marks_view(request):
     if request.COOKIES.get('course_id') is not None:
