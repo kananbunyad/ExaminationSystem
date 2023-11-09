@@ -39,7 +39,7 @@
       {% for c in questions %}
       <tr>
 
-        <td> <img style="width: 10em; height: 10em;" src="{% get_media_prefix %}/quiz_pic/{{c.quiz_pic}}"> </td>
+        <td> <img style="width: 10em; height: 10em;" src="{% get_media_prefix %}{{c.quiz_pic}}"> </td>
 
         <td><a class="btn btn-danger btn-xs" style="border-radius: 0%;" href="{% url 'remove-question' c.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
         

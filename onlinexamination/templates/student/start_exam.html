@@ -18,7 +18,7 @@
     {% csrf_token %}
     <h2 style="text-align: center;">Course: {{course.course_name}}</h2>
         <div style="text-align: center">
-            <img style="width: 30em; height: 30em;" src="{% get_media_prefix %}/quiz_pic/{{question.quiz_pic}}">
+            <img style="width: 30em; height: 30em;" src="{% get_media_prefix %}{{question.quiz_pic}}">
         </div>
 
         <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
