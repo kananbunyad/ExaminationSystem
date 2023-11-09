@@ -14,7 +14,7 @@
 
 <div class="jumbotron my-4">
 
-  <form method="POST" class="form" autocomplete="off" onsubmit="return saveAns()" >
+  <form method="POST" enctype="multipart/form-data" class="form" autocomplete="off" onsubmit="return saveAns()" >
     {% csrf_token %}
     <h2 style="text-align: center;">Course: {{course.course_name}}</h2>
         <div style="text-align: center">
